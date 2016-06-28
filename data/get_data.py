@@ -26,5 +26,5 @@ class VideoCourseGetter(object):
                 item.get("new_subject_id"),
                 item.get("detail"),
             ]
-            writer.write("video_course", tools.formatter(values) + "\n")
-        writer.close()
+            self.writer.write("video_course", tools.formatter(values) + "\n")
+        self.writer.close()
