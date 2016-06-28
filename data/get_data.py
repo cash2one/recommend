@@ -9,3 +9,5 @@ class VideoCourseGetter(object):
 
     def get(self):
         self.db_ins.execute("SELECT * FROM `cdb.video_course` WHERE `status` = 1")
+        for item in self.db_ins.next_all():
+            print item

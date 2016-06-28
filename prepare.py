@@ -3,6 +3,7 @@
 from libs import db
 from libs import base_conf
 from libs.log import Log
+from data import get_data
 
 logger = Log("./logs/recommend").instance()
 
@@ -16,8 +17,10 @@ def run():
     conf = base_conf.get_conf(["./conf/recommend.ini"])
     logger.info(conf)
 
-    db_conf = db.get_db_pool(base_conf.get_conf([conf.db_ins]))
-    print db_conf
+    db_pool = db.get_db_pool(base_conf.get_conf([conf.db_ins]))
+    print db_pool
+
+    video_course = get_data.VideoCourseGetter(db_pool, conf)
 
     # writer = get_writer(conf)
 
