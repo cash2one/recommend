@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #-*- coding:utf-8 -*-
 from libs import tools
+import re
 
 class VideoCourseGetter(object):
 
@@ -29,7 +30,8 @@ class VideoCourseGetter(object):
                 item.get("new_subject_id"),
                 item.get("detail")
             ]
-            self.writer.write("video_course", tools.formatter(values, c = "\x01") + "\n")
+            course_item = re.sub(r"\n", " ", tools.formatter(values, c = "\x01"))
+            self.writer.write("video_course", course_item + "\n")
             count += 1
         self.logger.info("video_course count [%s]" % count)
         self.writer.close()
