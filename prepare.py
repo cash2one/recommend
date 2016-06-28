@@ -2,10 +2,11 @@
 #-*- coding:utf-8 -*-
 from libs import db
 from libs import base_conf
-from libs.log import Log
+from libs import log
 from data import get_data
+from libs import writer
 
-logger = Log("./logs/recommend").instance()
+logger = log.Log("./logs/recommend").instance()
 
 def get_writer(conf):
     writer_nodes = {}
