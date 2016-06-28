@@ -21,6 +21,7 @@ def run():
     print db_pool
 
     video_course = get_data.VideoCourseGetter(db_pool, conf)
+    video_course.get()
 
     # writer = get_writer(conf)
 
