@@ -16,7 +16,7 @@ def run():
     conf = base_conf.get_conf(["./conf/recommend.ini"])
     logger.info(conf)
 
-    db_conf = db.get_db_pool(base_conf.get_conf([conf.db_ins]), dict_cursor = True)
+    db_conf = db.get_db_pool(base_conf.get_conf([conf.db_ins]))
     print db_conf
 
     # writer = get_writer(conf)
