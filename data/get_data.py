@@ -10,7 +10,10 @@ class VideoCourseGetter(object):
         self.logger = logger
 
     def get(self):
-        self.db_ins.execute("SELECT * FROM cdb.`video_course` WHERE `status` = 1")
+        sql = "SELECT * FROM cdb.`video_course` WHERE `status` = 1"
+        self.db_ins.execute(sql)
+        self.logger.info("sql = [%s]" % sql)
+        count = 0
         while True:
             item = self.db_ins.next()
             if not item:
@@ -24,7 +27,9 @@ class VideoCourseGetter(object):
                 item.get("label_ids"),
                 item.get("subject_id"),
                 item.get("new_subject_id"),
-                item.get("detail"),
+                item.get("detail")
             ]
-            self.writer.write("video_course", tools.formatter(values) + "\n")
+            self.writer.write("video_course", tools.formatter(values, c = "\x01") + "\n")
+            count += 1
+        self.logger.info("video_course count [%s]" % count)
         self.writer.close()
