@@ -32,5 +32,6 @@ class KeywordsGetter(object):
                      self.parser.name, self.parser.introduce, self.parser.label_ids, self.parser.new_subject_id, self.parser.detail
 
             return True
-        except:
+        except Exception as info:
+            print info
             return False
