@@ -29,7 +29,7 @@ class KeywordsGetter(object):
         try:
             for line in open(self.conf.video_course, "rb"):
                 if self.parser.parse(line.strip("\n")):
-                    print self.parser.number
+                    print self.parser.number, self.parser.name, self.parser.introduce
                     #  self.parser.number, self.parser.name, self.parser.introduce, self.parser.label_ids, self.parser.new_subject_id, self.parser.detail
 
             return True
