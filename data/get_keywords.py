@@ -28,9 +28,9 @@ class KeywordsGetter(object):
         print self.conf.video_course
         try:
             for line in open(self.conf.video_course, "rb"):
-                print line
                 if self.parser.parse(line.strip("\n")):
-                     self.parser.number, self.parser.name, self.parser.introduce, self.parser.label_ids, self.parser.new_subject_id, self.parser.detail
+                    print self.parser.number
+                    #  self.parser.number, self.parser.name, self.parser.introduce, self.parser.label_ids, self.parser.new_subject_id, self.parser.detail
 
             return True
         except Exception as info:
