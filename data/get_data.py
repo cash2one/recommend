@@ -12,7 +12,7 @@ class VideoCourseGetter(object):
 
     def get(self):
         sql = "SELECT * FROM cdb.`video_course` WHERE `status` = 1"
-        self.db_ins.execute(sql)
+        self.db_ins.execute(sql, print_sql = False)
         self.logger.info("sql = [%s]" % sql)
         count = 0
         while True:

@@ -22,14 +22,17 @@ class KeywordsGetter(object):
         item.get("detail")
     '''
 
+    def tf_to_string(self, tf):
+        return ",".join([":".join([word, tf[word]]) for word in tf])
+
     def get(self):
         if not os.path.isfile(self.conf.video_course):
             return False
         try:
             for line in open(self.conf.video_course, "rb"):
                 if self.parser.parse(line.strip("\n")):
-                    tf = self.segger.seg(self.parser.name)
-                    print tf.get("tf")
+                    tf = self.segger.seg(self.parser.name + self.parser.introduce + self.parser.detail)
+                    print self.tf_to_string(tf.get("tf"))
                     #  self.parser.number, self.parser.name, self.parser.introduce, self.parser.label_ids, self.parser.new_subject_id, self.parser.detail
 
             return True
