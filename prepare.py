@@ -5,6 +5,7 @@ from libs import base_conf
 from libs import base_parser
 from libs import log
 from data import get_data
+from data import get_keywords
 from libs import writer
 from segment import seg
 
@@ -37,7 +38,7 @@ def run():
                                         ],
                                         sep = "\x01"
                                         )
-    keywords = get_data.KeywordsGetter(
+    keywords = get_keywords.KeywordsGetter(
         writer,
         conf,
         logger,
