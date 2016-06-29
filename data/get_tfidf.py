@@ -23,24 +23,34 @@ class TfIdf(object):
     def get(self):
         for line in open(self.data, "rb"):
             line = line.strip("\n")
-            doc_id, terms = line.split("\t")
+            doc_id, terms = line.split("\x01")
             if doc_id not in self.TF:
                 self.TF[doc_id] = {}
             self.N += 1
             for term in terms.split(","):
+                if not term.strip():
+                    continue
                 word, freq = term.split(":")
-                self.TF[doc_id][term] = int(freq)
+                self.TF[doc_id][word] = int(freq)
                 self.DF[word] = self.DF.get(word, 0) + 1
                 self.DC[doc_id] = self.DC.get(doc_id, 0) + int(freq)
 
         self.compute_tfidf()
 
     def compute_tfidf(self):
+        words = {}
         for doc_id in self.TF:
-            ret = []
+            ret = {}
+            if doc_id not in self.DC:
+                continue
             term_count = self.DC[doc_id]
             for word in self.TF[doc_id]:
                 tf = self.tf(self.TF[doc_id][word], term_count)
                 idf = self.idf(self.DF[word])
-                ret.append("%s:%s" % (word, self.tfidf(tf, idf)))
-            print "\t".join(map(str, [doc_id, ",".join(ret)]))
+                ret[word] = self.tfidf(tf, idf)
+            ret = sorted(ret.iteritems(), key=lambda d:d[1], reverse = True)
+            for word, tfidf in ret[:20]:
+                words[word] = True
+            # ret = ",".join([":".join([_word, str(_tfidf)]) for _word, _tfidf in ret])
+            # print "\t".join(map(str, [doc_id, ret]))
+        print len(words)

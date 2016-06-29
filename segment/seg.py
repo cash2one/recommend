@@ -30,7 +30,6 @@ class SegGetter(object):
         words = jieba.cut(query, cut_all = True)
         ret = []
         for word in words:
-            word = word
             if len(word) < 2:
                 continue
             if word in self.stop_words:

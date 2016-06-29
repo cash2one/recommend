@@ -6,6 +6,7 @@ from libs import base_parser
 from libs import log
 from data import get_data
 from data import get_keywords
+from data import get_tfidf
 from libs import writer
 from segment import seg
 
@@ -13,7 +14,7 @@ logger = log.Log("./logs/recommend").instance()
 
 def get_writer(conf):
     writer_nodes = {}
-    writer_nodes["video_course"] = writer.WriterNode(conf.video_course, writer.WriterMode.append_binary, bak = True)
+    # writer_nodes["video_course"] = writer.WriterNode(conf.video_course, writer.WriterMode.append_binary, bak = True)
     writer_nodes["video_course_keywords"] = writer.WriterNode(conf.video_course_keywords, writer.WriterMode.append_binary, bak = True)
     return writer.Writer(writer_nodes)
 
@@ -23,13 +24,13 @@ def run():
 
     writer = get_writer(conf)
 
-    db_pool = db.get_db_pool(base_conf.get_conf([conf.db_ins]))
-    video_course = get_data.VideoCourseGetter(
-        db_pool,
-        writer,
-        logger
-    )
-    video_course.get()
+    # db_pool = db.get_db_pool(base_conf.get_conf([conf.db_ins]))
+    # video_course = get_data.VideoCourseGetter(
+    #     db_pool,
+    #     writer,
+    #     logger
+    # )
+    # video_course.get()
 
     segger = seg.SegGetter(conf.stop_words, conf.user_dict)
     parser = base_parser.base_parser_t([
@@ -47,6 +48,8 @@ def run():
     )
     keywords.get()
 
+    tfidf = get_tfidf.TfIdf(conf.video_course_keywords)
+    tfidf.get()
 
 if __name__ == "__main__":
     run()
