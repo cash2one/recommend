@@ -48,6 +48,6 @@ class SegGetter(object):
 if __name__ == "__main__":
     sg = SegGetter("./stopwords.txt", user_dict = "./userdict.txt")
     print " ".join(sg.seg(u"雅思机经真题，").get("tf"))
-    print " ".join(sg.seg(u"2016年6月18日雅思机经[听力]_雅思_机经_听力_雅思新闻_雅思机经_跟谁学雅思官网").get("tf"))
+    print sg.seg(u"2016年6月18日雅思机经[听力]_雅思_机经_听力_雅思新闻_雅思机经_跟谁学雅思官网").get("tf")
     # print " ".join(sg.seg("我是一个中国人，"))
     # print " ".join(sg.seg("我是一个中国人，"))
