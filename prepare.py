@@ -2,6 +2,7 @@
 #-*- coding:utf-8 -*-
 from libs import db
 from libs import base_conf
+from libs import base_parser
 from libs import log
 from data import get_data
 from libs import writer
