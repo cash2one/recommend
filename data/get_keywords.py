@@ -25,14 +25,13 @@ class KeywordsGetter(object):
     def get(self):
         if not os.path.isfile(self.conf.video_course):
             return False
-        print self.conf.video_course
         try:
             for line in open(self.conf.video_course, "rb"):
                 if self.parser.parse(line.strip("\n")):
-                    print self.parser.number, self.parser.name, self.parser.introduce
+                    tf = self.segger.seg(self.parser.name)
+                    print tf.get("tf")
                     #  self.parser.number, self.parser.name, self.parser.introduce, self.parser.label_ids, self.parser.new_subject_id, self.parser.detail
 
             return True
         except Exception as info:
-            print info
             return False
