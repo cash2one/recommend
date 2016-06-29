@@ -27,7 +27,6 @@ class Writer(object):
     def init_writer(self):
         for key in self.writer:
             writer_node = self.writer[key]
-            print writer_node
             if os.path.exists(writer_node.path) and writer_node.bak:
                 os.system("mv %s %s.%s" % (writer_node.path, writer_node.path, timer.get_today()))
 
