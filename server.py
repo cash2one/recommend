@@ -19,7 +19,7 @@ def run():
 
     segger = seg.SegGetter(conf.stop_words, conf.user_dict)
     q = query.Query(segger, term_doc_index, {})
-    q.get("高考物理牛顿定律")
+    q.get("雅思考试_雅思培训_雅思报名_雅思考试时间-跟谁学雅思官网")
 
 if __name__ == "__main__":
     run()
