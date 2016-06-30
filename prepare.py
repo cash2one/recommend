@@ -25,13 +25,13 @@ def run():
 
     writer = get_writer(conf)
 
-    # db_pool = db.get_db_pool(base_conf.get_conf([conf.db_ins]))
-    # video_course = get_data.VideoCourseGetter(
-    #     db_pool,
-    #     writer,
-    #     logger
-    # )
-    # video_course.get()
+    db_pool = db.get_db_pool(base_conf.get_conf([conf.db_ins]))
+    video_course = get_data.VideoCourseGetter(
+        db_pool,
+        writer,
+        logger
+    )
+    video_course.get()
 
     segger = seg.SegGetter(conf.stop_words, conf.user_dict)
     parser = base_parser.base_parser_t([
