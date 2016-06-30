@@ -38,15 +38,14 @@ class KeywordsGetter(object):
     def get(self):
         if not os.path.isfile(self.conf.video_course):
             return False
-        # try:
-        for line in open(self.conf.video_course, "rb"):
-            if self.parser.parse(line.strip("\n")):
-                desc = self.parser.name + self.del_html_tag(self.parser.introduce) + self.del_html_tag(self.parser.detail) + self.parser.label_ids + ",".join(self.parser.subject_id.split(",")[3:])
-                if self.is_test(desc):
-                    continue
-                tf = self.segger.seg(desc)
-                self.writer.write("video_course_keywords", self.parser.number + "\x01" + self.tf_to_string(tf.get("tf")) + "\n")
-        self.writer.close()
-        # return True
-        # except Exception as info:
-            # return False
+        try:
+            for line in open(self.conf.video_course, "rb"):
+                if self.parser.parse(line.strip("\n")):
+                    desc = self.parser.name + self.del_html_tag(self.parser.introduce) + self.del_html_tag(self.parser.detail) + self.parser.label_ids + ",".join(self.parser.subject_id.split(",")[3:])
+                    if self.is_test(desc):
+                        continue
+                    tf = self.segger.seg(desc)
+                    self.writer.write("video_course_keywords", self.parser.number + "\x01" + self.tf_to_string(tf.get("tf")) + "\n")
+            return True
+        except Exception as info:
+            return False

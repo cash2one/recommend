@@ -34,4 +34,3 @@ class VideoCourseGetter(object):
             self.writer.write("video_course", course_item + "\n")
             count += 1
         self.logger.info("video_course count [%s]" % count)
-        self.writer.close()

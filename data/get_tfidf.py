@@ -4,8 +4,9 @@ import math
 
 class TfIdf(object):
 
-    def __init__(self, data):
+    def __init__(self, data, writer):
         self.data = data
+        self.writer = writer
         self.N = 0
         self.DF = {}
         self.TF = {}
@@ -49,8 +50,5 @@ class TfIdf(object):
                 idf = self.idf(self.DF[word])
                 ret[word] = self.tfidf(tf, idf)
             ret = sorted(ret.iteritems(), key=lambda d:d[1], reverse = True)
-            for word, tfidf in ret[:20]:
-                words[word] = True
-            # ret = ",".join([":".join([_word, str(_tfidf)]) for _word, _tfidf in ret])
-            # print "\t".join(map(str, [doc_id, ret]))
-        print len(words)
+            ret = ",".join([":".join([_word, str(_tfidf)]) for _word, _tfidf in ret])
+            self.writer.write("video_course_tfidf", doc_id + "\x01" + ret + "\n")

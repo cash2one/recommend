@@ -16,6 +16,7 @@ def get_writer(conf):
     writer_nodes = {}
     # writer_nodes["video_course"] = writer.WriterNode(conf.video_course, writer.WriterMode.append_binary, bak = True)
     writer_nodes["video_course_keywords"] = writer.WriterNode(conf.video_course_keywords, writer.WriterMode.append_binary, bak = True)
+    writer_nodes["video_course_tfidf"] = writer.WriterNode(conf.video_course_tfidf, writer.WriterMode.append_binary, bak = True)
     return writer.Writer(writer_nodes)
 
 def run():
@@ -48,8 +49,10 @@ def run():
     )
     keywords.get()
 
-    tfidf = get_tfidf.TfIdf(conf.video_course_keywords)
+    tfidf = get_tfidf.TfIdf(conf.video_course_keywords, writer)
     tfidf.get()
+
+    writer.close()
 
 if __name__ == "__main__":
     run()
