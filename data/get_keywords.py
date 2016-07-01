@@ -44,7 +44,7 @@ class KeywordsGetter(object):
                     desc = self.parser.name + self.del_html_tag(self.parser.introduce) + self.del_html_tag(self.parser.detail) + self.parser.label_ids + ",".join(self.parser.subject_id.split(",")[3:])
                     if self.is_test(desc):
                         continue
-                    tf = self.segger.seg(desc)
+                    tf = self.segger.seg(desc.lower())
                     self.writer.write("video_course_keywords", self.parser.number + "\x01" + self.tf_to_string(tf.get("tf")) + "\n")
             return True
         except Exception as info:

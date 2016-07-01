@@ -19,6 +19,9 @@ class VideoCourseGetter(object):
             item = self.db_ins.next()
             if not item:
                 break
+            # 如果标题小于五个字，介绍小于20个字直接当作垃圾课程去掉
+            if len(item.get("name")) < 6 or len(item.get("introduce")) < 21:
+                continue
             values = [
                 item.get("number"),
                 item.get("name"),
