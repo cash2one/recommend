@@ -28,10 +28,10 @@ class TfIdf(object):
             if doc_id not in self.TF:
                 self.TF[doc_id] = {}
             self.N += 1
+            print doc_id, terms
             for term in terms.split(","):
                 if not term.strip():
                     continue
-                print doc_id, terms
                 word, freq = term.split(":", 1)
                 self.TF[doc_id][word] = int(freq)
                 self.DF[word] = self.DF.get(word, 0) + 1

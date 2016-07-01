@@ -25,31 +25,31 @@ def run():
 
     writer = get_writer(conf)
 
-    # 从数据库获得视频课
-    db_pool = db.get_db_pool(base_conf.get_conf([conf.db_ins]))
-    video_course = get_data.VideoCourseGetter(
-        db_pool,
-        writer,
-        logger
-    )
-    video_course.get()
-
-    # 将视频课处理成doc_id => term,term,term
-    segger = seg.SegGetter(conf.stop_words, conf.user_dict)
-    parser = base_parser.base_parser_t([
-                                        "number", "name", "portrait", "price", "introduce",
-                                        "label_ids", "subject_id", "new_subject_id", "detail",
-                                        ],
-                                        sep = "\x01"
-                                        )
-    keywords = get_keywords.KeywordsGetter(
-        writer,
-        conf,
-        logger,
-        segger,
-        parser
-    )
-    keywords.get()
+    # # 从数据库获得视频课
+    # db_pool = db.get_db_pool(base_conf.get_conf([conf.db_ins]))
+    # video_course = get_data.VideoCourseGetter(
+    #     db_pool,
+    #     writer,
+    #     logger
+    # )
+    # video_course.get()
+    #
+    # # 将视频课处理成doc_id => term,term,term
+    # segger = seg.SegGetter(conf.stop_words, conf.user_dict)
+    # parser = base_parser.base_parser_t([
+    #                                     "number", "name", "portrait", "price", "introduce",
+    #                                     "label_ids", "subject_id", "new_subject_id", "detail",
+    #                                     ],
+    #                                     sep = "\x01"
+    #                                     )
+    # keywords = get_keywords.KeywordsGetter(
+    #     writer,
+    #     conf,
+    #     logger,
+    #     segger,
+    #     parser
+    # )
+    # keywords.get()
 
     # 计算tfidf 不过这种方法依赖于课程本身
     tfidf = get_tfidf.TfIdf(conf.video_course_keywords, writer)
