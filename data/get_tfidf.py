@@ -31,7 +31,7 @@ class TfIdf(object):
             for term in terms.split(","):
                 if not term.strip():
                     continue
-                print doc_id, term
+                print doc_id, terms
                 word, freq = term.split(":", 1)
                 self.TF[doc_id][word] = int(freq)
                 self.DF[word] = self.DF.get(word, 0) + 1
