@@ -33,6 +33,7 @@ def run():
         logger
     )
     video_course.get()
+    writer.close_key("video_course")
 
     # 将视频课处理成doc_id => term,term,term
     segger = seg.SegGetter(conf.stop_words, conf.user_dict)
@@ -50,6 +51,7 @@ def run():
         parser
     )
     keywords.get()
+    writer.close_key("video_course_keywords")
 
     # 计算tfidf 不过这种方法依赖于课程本身
     tfidf = get_tfidf.TfIdf(conf.video_course_keywords, writer)

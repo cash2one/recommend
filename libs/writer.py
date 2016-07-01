@@ -23,6 +23,7 @@ class Writer(object):
         self.writer = writer
         self.writer_instance = {}
         self.init_writer()
+        self.has_closed = {}
 
     def init_writer(self):
         for key in self.writer:
@@ -39,9 +40,19 @@ class Writer(object):
 
     def close(self):
         for key in self.writer_instance:
+            if key in self.has_closed:
+                continue
             self.writer_instance[key].close()
             writer_node = self.writer.get(key)
             os.system("touch %s" % writer_node.done_path)
+
+    def close_key(self, key):
+        if key not in self.writer_instance:
+            return False
+        self.writer_instance[key].close()
+        self.has_closed[key] = True
+        writer_node = self.writer.get(key)
+        os.system("touch %s" % writer_node.done_path)
 
     def get(self, key):
         return self.writer_instance.get(key, None)
